@@ -1,0 +1,214 @@
+
+
+##### 1.  LOADING AND CONVERTING DATA INTO TIME SERIES FORMAT ###############################
+
+kings = scan("http://robjhyndman.com/tsdldata/misc/kings.dat", skip=3)
+kingsTimeSeries = ts(kings)
+kingsTimeSeries
+
+ #Sometimes the time series data set that you have may have been collected at regular intervals that were less than
+ #one year, for example, monthly or quarterly. In this case, you can specify the number of times that data was
+ #collected per year by using the ‘frequency’ parameter in the ts() function. For monthly time series data, you set
+ #frequency=12, while for quarterly time series data, you set frequency=4.
+
+births = scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+head(births)
+ #births data is monthly basis collected starting Jan 1946
+birthsTS = ts(births, frequency= 12, start = c(1946,1))
+ #here we've taken start = c(1946,1) bcz 1st data was collected in the 1st quarter of 1946. It's starting point
+ #If the 1st data were collected in 3rd quarter of 1946, then we'd have used start = c(1946,3)
+
+ #Souvenir data is monthly basis collected starting Jan 1987
+souvenir = scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirTS =ts(souvenir, frequency=12, start= c(1987,1))
+souvenirTS
+
+
+######  2.  PLOTTING THE TIME SERIES DATA    ###########################################
+
+plot.ts(kingsTimeSeries)
+ #the time plot that this time series could probably be described using an additive model, since the
+ #random fluctuations in the data are roughly constant in size over time.
+
+plot.ts(birthsTS)
+ #Here we can see that there is seasonal variation in in the no. of births per month.#Birth seem to be peak
+ #in summer and trough in winter. Seosonal fluctuations are roughly contstant in size over time. It could be
+ #described via ADDITIVE MODEL
+
+plot.ts(souvenirTS)
+ #Here size of random fluctuation seems to be increasing over time. Lets transform it using log
+LOGsouvenirTS = log(souvenirTS)
+plot.ts(LOGsouvenirTS)
+ #Here we can see that the size of the seasonal fluctuations and random fluctuations in the log-transformed time
+ #series seem to be roughly constant over time, and do not depend on the level of the time series. Thus, the logtransformed
+ #time series can probably be described using an ADDITIVE MODEL
+
+
+
+
+############   3.  DECOMPOSING TIME-SERIES DATA    ############################################
+
+#Decomposing time-series means decomposing it into 
+ # A) trend component, 
+ # B) irregular component (residuals) 
+ # C)and seasonal component (if the data is seasonal time-series)
+
+
+
+##Decomposing non-seasonal time-series data
+
+ #TTR packages contains the smooting function SMA() i.e. simple moving average
+library(TTR)
+kingsTimeSeriesSMA3 = SMA(kingsTimeSeries, n=3)
+ #HEre we're taking moving average of order 3. for kth element, we'll take average of k, k-1 & k-2
+
+plot.ts(kingsTimeSeriesSMA3)
+ #THere doesnt seem to be a clear pattern with order 3, lets take n=8
+
+kingsTimeSeriesSMA8 = SMA(kingsTimeSeries, n=8)
+plot.ts(kingsTimeSeriesSMA8)
+ #The data smoothed with a simple moving average of order 8 gives a clearer picture of the trend component, and
+ #we can see that the age of death of the English kings seems to have decreased from about 55 years old to about 38
+ #years old during the reign of the first 20 kings, and then increased after that to about 73 years old by the end of the
+ #reign of the 40th king in the time series.
+
+
+
+###  DECOMPOSING SEASONAL TIME SERIES DATA
+
+ #We can decompose seasonal data into trend, irregular & seasonal components using decompose() function
+birthsTSComponents = decompose(birthsTS)
+
+birthsTSComponents$seasonal
+ #The largest seasonal factor is for July (about 1.46), and the lowest is for February (about -2.08), indicating that there
+ #seems to be a peak in births in July and a trough in births in February each year.
+plot(birthsTSComponents)
+
+
+
+## SEASONALLY ADJUSTING
+
+#If we have a seasonal time series that can be described using an additive model, you can seasonally adjust the
+#time series by estimating the seasonal component, and subtracting the estimated seasonal component from the
+#original time series.
+
+birthsTSComponents = decompose(birthsTS) #Estimating seasonal component
+birthsTSSeasonallyAdjusted = birthsTS - birthsTSComponents$seasonal   #subtracting SeasCom from time series data
+plot(birthsTSSeasonallyAdjusted)  #Plotting the seasonally adjusted data
+ #Now we see that seasonal variation has been removed from seasonally adjusted time series. it contains only
+ #trend & irregular components
+
+
+
+
+############   4. FORECASTS USING EXPONENTIAL SMOOTHING     #########################
+#Exponential smoothing is used for making short-term forecasts for time-series data
+
+
+###   4.A.  Simple Exponential Smoothing
+ #If you have a time series that can be described using an additive model with constant level and no seasonality, you
+ #can use simple exponential smoothing to make short-term forecasts.
+
+ #The simple exponential smoothing method provides a way of estimating the level at the current time point.
+ #Smoothing is controlled by the parameter alpha; for the estimate of the level at the current time point. The
+ #value of alpha; lies between 0 and 1. Values of alpha that are close to 0 mean that little weight is placed on the
+ #most recent observations when making forecasts of future values.
+
+
+rain <- scan("http://robjhyndman.com/tsdldata/hurst/precip1.dat",skip=1)
+ #This dataset contains total annual rainfall in inches for London, from 1813-1912
+
+rainTS = ts(rain, start = c(1813))
+plot.ts(rainTS)
+ #We can see that random fluctuation in time-series is roughly constant hence we can describe it using additive model
+ #THus we can make forecasts using simple exponential smoothing
+
+ #We use HoltWinters() fn to make forecasts on time-series using simple exponential smoothing
+rainTSforecasts = HoltWinters(rainTS, beta=FALSE, gamma=FALSE)
+ #Since 1st value is 23.56 (inches) rainfall in 1813, we can write it like this as well
+ #rainTSforecasts = HoltWinters(rainTS, beta=FALSE, gamma=FALSE, 1.start=23.56)
+rainTSforecasts
+ #Here alpha=0.024 which is close to zero means forecasts is based on non-recent observation
+
+ #By default, HoltWinters() fn makes the forecast for same date as original dataset i.e. 1813-1912 and this forecast
+ #is saved in $fitted variable of HoltWinters 
+rainTSforecasts$fitted
+
+ #Plotting original time-series against forecasts, red line is forecasts. black line is original time-series
+plot(rainTSforecasts)
+
+ #We can calculate the accuracy of forecasts using SSE
+rainTSforecasts$SSE
+
+
+ #Since HoltWinters makes forecaste for the same period as original time-series, we can make forecast for further
+ #date using forecaste package
+library(forecast)
+rainTSforecasts2 = forecast.HoltWinters(rainTSforecasts, h=8)
+rainTSforecasts2
+ #Here we're making forecast for 8 nex years i.e. 1913-1920 with 80% 95% prediction interval
+
+plot.forecast(rainTSforecasts2)
+ #Blue line prediction for 1913-1920. Blue shaded area is 80% prediction and 95% interval is grey shaded area
+
+
+## CHECKING THE IN-SAMPLE ERROR I.E. SSE
+
+ #if there are correlations between forecast errors for successive predictions, it is likely that the simple exponential 
+ #smoothing forecasts could be improved upon by another forecasting technique.
+
+ #To figure out whether this is the case, we can obtain a correlogram of the in-sample forecast errors for lags 1-20.
+ #We can calculate a correlogram of the forecast errors using the “acf()” function in R for lags 1-20
+acf(rainTSforecasts2$residuals, lag.max=20)
+
+ #You can see from the sample correlogram that the autocorrelation at lag 3 is just touching the significance bounds.
+ #To test whether there is significant evidence for non-zero correlations at lags 1-20, we can carry out a Ljung- Box test.
+Box.test(rainTSforecasts2$residuals, lag=20, type="Ljung-Box")
+
+#Here the Ljung-Box test statistic is 17.4, and the p-value is 0.6, so there is little evidence of non-zero autocorrelations
+#in the in-sample forecast errors at lags 1-20.
+
+
+ #To be sure that the predictive model cannot be improved upon, it is also a good idea to check whether the forecast
+ #errors are normally distributed with mean zero and constant variance.
+plot(rainTSforecasts2$residuals)
+
+ #The plot shows that the in-sample forecast errors seem to have roughly constant variance over time although the size of 
+ #the fluctuations in the start of the time series (1820-1830) may be slightly less than that at later dates (eg.1840-1850).
+
+
+
+ #To check whether the forecast errors are normally distributed with mean zero, we can plot a histogram of the forecast
+ #errors, with an overlaid normal curve that has mean zero and the same standard deviation as the distribution
+ #of forecast errors. To do this, we can define an R function “plotForecastErrors()”, below:
+plotForecastErrors <- function(forecasterrors)
+{
+  # make a histogram of the forecast errors:
+  mybinsize <- IQR(forecasterrors)/4
+  mysd <- sd(forecasterrors)
+  mymin <- min(forecasterrors) - mysd*5
+  mymax <- max(forecasterrors) + mysd*3
+  # generate normally distributed data with mean 0 and standard deviation mysd
+  mynorm <- rnorm(10000, mean=0, sd=mysd)
+  mymin2 <- min(mynorm)
+  mymax2 <- max(mynorm)
+  if (mymin2 < mymin) { mymin <- mymin2 }
+  if (mymax2 > mymax) { mymax <- mymax2 }
+  # make a red histogram of the forecast errors, with the normally distributed data overlaid:
+  mybins <- seq(mymin, mymax, mybinsize)
+  hist(forecasterrors, col="red", freq=FALSE, breaks=mybins)
+  # freq=FALSE ensures the area under the histogram = 1
+  # generate normally distributed data with mean 0 and standard deviation mysd
+  myhist <- hist(mynorm, plot=FALSE, breaks=mybins)
+  # plot the normal curve as a blue line on top of the histogram of forecast errors:
+  points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)
+}
+
+
+plotForecastErrors(rainTSforecasts2$residuals)
+ #The plot shows that the distribution of forecast errors is roughly centred on zero, and is more or less normally
+ #distributed, although it seems to be slightly skewed to the right compared to a normal curve. However, the right
+ #skew is relatively small, and so it is plausible that the forecast errors are normally distributed with mean zero.
+
+
+
