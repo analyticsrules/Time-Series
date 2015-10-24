@@ -125,8 +125,8 @@ plot.ts(rainTS)
 
  #We use HoltWinters() fn to make forecasts on time-series using simple exponential smoothing
 rainTSforecasts = HoltWinters(rainTS, beta=FALSE, gamma=FALSE)
- #Since 1st value is 23.56 (inches) rainfall in 1813, we can write it like this as well
- #rainTSforecasts = HoltWinters(rainTS, beta=FALSE, gamma=FALSE, 1.start=23.56)
+ #Since 1st value is 23.56 (inches) rainfall in 1813, we can write it using l.start (L-start)
+ #rainTSforecasts = HoltWinters(rainTS, beta=FALSE, gamma=FALSE, l.start=23.56)
 rainTSforecasts
  #Here alpha=0.024 which is close to zero means forecasts is based on non-recent observation
 
