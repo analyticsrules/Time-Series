@@ -1,0 +1,96 @@
+
+An observed time series can be decomposed into three components: the trend (long term direction), the seasonal 
+(systematic, calendar related movements) and the irregular (unsystematic, short term fluctuations).
+
+Time series can be classified into two different types: STOCK and FLOW. 
+A stock series is a measure of certain attributes at a point in time and can be thought of as “stocktakes”. For example, the 
+Monthly Labour Force Survey is a stock measure because it takes stock of whether a person was employed in the reference week. 
+
+Flow series are series which are a measure of activity over a given period. For example, surveys of Retail Trade activity. 
+Manufacturing is also a flow measure because a certain amount is produced each day, and then these amounts are summed to give 
+a total value for production for a given reporting period.
+The main difference between a stock and a flow series is that flow series can contain effects related to the calendar 
+(trading day effects). Both types of series can still be seasonally adjusted using the same seasonal adjustment process.
+
+SEASONAL EFFECT:- A seasonal effect is a systematic and calendar related effect. For. e.g. Trading day (consumption of many items
+is highest on weekends). High consumption on Moving days (Easter day or Eid, date is not fixed)
+
+WHAT IS SEASONAL ADJUSTMENT AND WHY DO WE NEED IT?
+Seasonal adjustment is the process of estimating and then removing from a time series influences that are systematic and calendar
+related. Observed data needs to be seasonally adjusted as seasonal effects can conceal both the true underlying movement in the 
+series, as well as certain non-seasonal characteristics which may be of interest to analysts.
+
+
+WHY CAN'T WE JUST COMPARE ORIGINAL DATA FROM THE SAME PERIOD IN EACH YEAR?
+A comparison of original data from the same period in each year does not completely remove all seasonal effects. Certain holidays
+such as Easter and Chinese New Year fall in different periods in each year, hence they will distort observations. Also, year 
+to year values will be biased by any changes in seasonal patterns that occur over time.
+
+WHEN IS SEASONAL ADJUSTMENT INAPPROPRIATE?
+When a time series is dominated by the trend or irregular components, it is nearly impossible to identify and remove what little 
+seasonality is present. Hence seasonally adjusting a non-seasonal series is impractical and will often introduce an artificial 
+seasonal element.
+
+
+WHAT IS SEASONALITY?
+The seasonal component consists of effects that are reasonably stable with respect to timing, direction and magnitude. It 
+arises from systematic, calendar related influences such as:
+A) Natural Conditions:- weather fluctuations that are representative of the season 
+B) Business and Administrative procedures:-start and end of the school term
+C) Social and Cultural behaviour:- Christmas
+D) Trading day effects:- Sales are generally higher on weekends
+E) Moving Holiday Effects:- Easter Day, Eid, Bakried (date not fixed of these holidays)
+
+HOW DO WE IDENTIFY SEASONALITY?
+Seasonality in a time series can be identified by regularly spaced peaks and troughs which have a consistent direction and 
+approximately the same magnitude every year, relative to the trend.
+
+WHAT IS AN IRREGULAR?
+The irregular component (sometimes also known as the residual) is what remains after the seasonal and trend components of a time
+series have been estimated and removed. It results from short term fluctuations in the series which are neither systematic nor
+predictable.
+
+WHAT IS THE TREND?
+The ABS trend is defined as the 'long term' movement in a time series without calendar related and irregular effects, and is 
+a reflection of the underlying level. It is the result of influences such as population growth, price inflation and general 
+economic changes.
+
+
+WHAT ARE THE UNDERLYING MODELS USED TO DECOMPOSE THE OBSERVED TIME SERIES?
+Decomposition models are typically additive or multiplicative, but can also take other forms such as pseudo-additive.
+
+   ***ADDITIVE DECOMPOSITION***
+In some time series, the amplitude of both the seasonal and irregular variations do not change as the level of the trend rises
+or falls. In such cases, an additive model is appropriate.In the additive model, the observed time series (Ot) is considered 
+to be the sum of three independent components: the seasonal St, the trend Tt and the irregular.
+It. 
+                 Observed Series = Trend + Seasonal + Irregular
+                 Qt = Tt+St+It   where t denotes time series
+              thus, Seasonally Adjusted Series = Observed Series-Seasonal = Trend+Irregular
+
+
+
+   ***MULTIPLICATIVE DECOMPOSITION***
+In many time series, the amplitude of both the seasonal and irregular variations increase as the level of the trend rises.
+In this situation, a multiplicative model is usually appropriate. In the multiplicative model, the original time series is 
+expressed as the product of trend, seasonal and irregular components.
+                   Observed Series = Trend X Seasonal X Irregulat = Tt*St*It
+                   Seasonally Adjusted Series = Observed ÷ Seasonal = Trend X Irregular
+                   
+                   
+    ***PSEUDO-ADDITIVE DECOMPOSITION***
+The multiplicative model cannot be used when the original time series contains very small or zero values. This is because it 
+is not possible to divide a number by zero. In these cases, a pseudo additive model combining the elements of both the additive
+and multiplicative models is used. This model assumes that seasonal and irregular variations are both dependent on the level of
+the trend but independent of each other. 
+                  Observed/Original Series = trend X (Seasonal + Irregular -1) = T*(S+I-1)
+                  Seasonally Adjusted Estimate  = observed - trend(Seasonal -1) =  O - T X (S-1)
+                  
+
+HOW DO I KNOW WHICH DECOMPOSITION MODEL TO USE?
+To choose an appropriate decomposition model, the time series analyst will examine a graph of the original series and try a 
+range of models, selecting the one which yields the most stable seasonal component. If the magnitude of the seasonal component
+is relatively constant regardless of changes in the trend, an additive model is suitable. If it varies with changes in the 
+trend, a multiplicative model is the most likely candidate. However if the series contains values close or equal to zero, and
+the magnitude of seasonal component appears to be dependent upon the trend level, then pseudo-additive model is most appropriate.
+
