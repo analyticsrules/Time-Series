@@ -12,7 +12,7 @@ Types of Exponential Smoothing for Single Variable
 
 ##########   1. Simple Exponential Smoothing    #######################
 
- #If you have a time series that can be described using an additive model with constant level and no seasonality, you
+ #If you have a time series that can be described using an additive model with constant level (trend) and no seasonality, you
  #can use simple exponential smoothing to make short-term forecasts.
 
  #The simple exponential smoothing method provides a way of estimating the level at the current time point.
