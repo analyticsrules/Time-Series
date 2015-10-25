@@ -101,3 +101,6 @@ is relatively constant regardless of changes in the trend, an additive model is 
 trend, a multiplicative model is the most likely candidate. However if the series contains values close or equal to zero, and
 the magnitude of seasonal component appears to be dependent upon the trend level, then pseudo-additive model is most appropriate.
 
+
+WHAT IS LAG?
+So LAG=x is basically seeing how correlated Time T is with time T-x
