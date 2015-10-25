@@ -1,4 +1,11 @@
 
+TIME-SERIES DATA & CROSS SECTIONAL DATA
+Time-Seris Data:- Set of observations collected at usually discrete and equally spaced time intervals. For e.g daily closing
+stock price of a certain company for last 6 months.
+Cross-Sectional Data:- Observations coming from different individuals or groups at a single point of time. For e.g. closing
+stock prices of 20 different tech companies on 15th Nov 2015. Here underlying population should consists members with
+similar characteristics.
+
 An observed time series can be decomposed into three components: the trend (long term direction), the seasonal 
 (systematic, calendar related movements) and the irregular (unsystematic, short term fluctuations).
 
