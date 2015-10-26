@@ -40,27 +40,24 @@ seasonal element.
 
 
 WHAT IS SEASONALITY?
-The seasonal component consists of effects that are reasonably stable with respect to timing, direction and magnitude. It 
-arises from systematic, calendar related influences such as:
+A seasonal pattern occurs when a time series is affected by seasonal factors such as the time of the year or the day of the week.
+It is related to influences such as:
 A) Natural Conditions:- weather fluctuations that are representative of the season 
 B) Business and Administrative procedures:-start and end of the school term
-C) Social and Cultural behaviour:- Christmas
-D) Trading day effects:- Sales are generally higher on weekends
-E) Moving Holiday Effects:- Easter Day, Eid, Bakried (date not fixed of these holidays)
+C) Trading day effects:- Sales are generally higher on weekends
+D) Moving Holiday Effects:- Easter Day, Eid, Bakried (date not fixed of these holidays)
 
 HOW DO WE IDENTIFY SEASONALITY?
 Seasonality in a time series can be identified by regularly spaced peaks and troughs which have a consistent direction and 
 approximately the same magnitude every year, relative to the trend.
 
-WHAT IS AN IRREGULAR?
+WHAT IS AN IRREGULAR (or Cycle)?
 The irregular component (sometimes also known as the residual) is what remains after the seasonal and trend components of a time
 series have been estimated and removed. It results from short term fluctuations in the series which are neither systematic nor
 predictable.
 
 WHAT IS THE TREND?
-The ABS trend is defined as the 'long term' movement in a time series without calendar related and irregular effects, and is 
-a reflection of the underlying level. It is the result of influences such as population growth, price inflation and general 
-economic changes.
+A trend exists when there is a long-term increase or decrease in the data. 
 
 
 WHAT ARE THE UNDERLYING MODELS USED TO DECOMPOSE THE OBSERVED TIME SERIES?
