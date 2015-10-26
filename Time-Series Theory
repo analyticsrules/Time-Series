@@ -101,3 +101,17 @@ the magnitude of seasonal component appears to be dependent upon the trend level
 
 WHAT IS LAG?
 So LAG=x is basically seeing how correlated Time T is with time T-x
+
+WHAT IS AUTOCORRELATION & CORRLOGRAM?
+autocorrelation measures the linear relationship between lagged values of a time series. For example, r1 measures the 
+relationship between yt and yt−1, r2 measures the relationship between yt and yt−2, and so on. The autocorrelation coefficients
+are normally plotted to form the autocorrelation function or ACF. The plot is also known as a correlogram.
+
+ACF= AUTOCORRELATION FUNCTION & PACF= PARTIAL AUTOCORRELATION FUNCTION.
+
+WHAT IS WHITE NOISE?
+Time series that show no autocorrelation are called "white noise". For white noise series, we expect each autocorrelation to be close 
+to zero or within the lag bounds. Of course, they are not exactly equal to zero as there is some random variation.
+More info in this Link:-  https://www.otexts.org/fpp/2/2
+
+
