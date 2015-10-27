@@ -140,3 +140,4 @@ D) Drift Method:- A variation on the naïve method is to allow the forecasts to 
                legend=c("Mean method","Naive method","Seasonal naive method"))
       
 
+https://www.otexts.org/fpp/2/4
