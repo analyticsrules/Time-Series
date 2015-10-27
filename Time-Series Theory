@@ -110,8 +110,8 @@ are normally plotted to form the autocorrelation function or ACF. The plot is al
 ACF= AUTOCORRELATION FUNCTION & PACF= PARTIAL AUTOCORRELATION FUNCTION.
 
 WHAT IS WHITE NOISE?
-Time series that show no autocorrelation are called "white noise". For white noise series, we expect each autocorrelation to be close 
-to zero or within the lag bounds. Of course, they are not exactly equal to zero as there is some random variation.
+Time series that show no autocorrelation are called "white noise". For white noise series, we expect each autocorrelation to
+be close to zero or within the lag bounds. Of course, they are not exactly equal to zero as there is some random variation.
 More info in this Link:-  https://www.otexts.org/fpp/2/2
 
 
