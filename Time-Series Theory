@@ -115,3 +115,28 @@ be close to zero or within the lag bounds. Of course, they are not exactly equal
 More info in this Link:-  https://www.otexts.org/fpp/2/2
 
 
+SIMPLE FORECASTING METHODS
+A) Average Method:- Here, the forecasts of all future values are equal to the mean of the historical data.
+    R Code:-  -> meanf(y, h)  #Where y contains time series & h is forecasted time perid. h=11 means forecast for next 11 years
+B) Naive Method:- All forecasts are simply set to be the value of the last observation. That is, the forecasts
+    of all future values are set to be yT, where yT is the last observed value. Rcode:- -> naive(y,h)
+C) Seasonal Naive Methods:- A similar method is useful for highly seasonal data. In this case, we set each forecast to be
+    equal to the last observed value from the same season of the year (e.g., the same month of the previous year). -> snaive(y,h)
+D) Drift Method:- A variation on the naïve method is to allow the forecasts to increase or decrease over time, where the
+    amount of change over time (called the drift) is set to be average change seen in the historical data.-> rwf(y, h, drift=TRUE)
+    
+       Exmaple:-
+       library(fpp)
+       beer2 <- window(ausbeer,start=1992,end=2006-.1)
+       beerfit1 <- meanf(beer2, h=11)
+       beerfit2 <- naive(beer2, h=11)
+       beerfit3 <- snaive(beer2, h=11)
+       
+       plot(beerfit1, plot.conf=FALSE, 
+           main="Forecasts for quarterly beer production")
+           lines(beerfit2$mean,col=2)
+           lines(beerfit3$mean,col=3)
+           legend("topright",lty=1,col=c(4,2,3),
+               legend=c("Mean method","Naive method","Seasonal naive method"))
+      
+
