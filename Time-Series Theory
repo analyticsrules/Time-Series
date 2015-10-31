@@ -38,15 +38,6 @@ When a time series is dominated by the trend or irregular components, it is near
 seasonality is present. Hence seasonally adjusting a non-seasonal series is impractical and will often introduce an artificial 
 seasonal element.
 
-
-WHAT IS SEASONALITY?
-A seasonal pattern occurs when a time series is affected by seasonal factors such as the time of the year or the day of the week.
-It is related to influences such as:
-A) Natural Conditions:- weather fluctuations that are representative of the season 
-B) Business and Administrative procedures:-start and end of the school term
-C) Trading day effects:- Sales are generally higher on weekends
-D) Moving Holiday Effects:- Easter Day, Eid, Bakried (date not fixed of these holidays)
-
 HOW DO WE IDENTIFY SEASONALITY?
 Seasonality in a time series can be identified by regularly spaced peaks and troughs which have a consistent direction and 
 approximately the same magnitude every year, relative to the trend.
