@@ -44,6 +44,11 @@ plot.ts(LOGsouvenirTS)
  #time series can probably be described using an ADDITIVE MODEL
 
 
+################       Suppose there is daily data. We can convert it into time series using frequency=365.25     #############
+library(TTR)
+myts = ts(df1["Lead_Count"], frequency = 365.25)
+dfSMA1 = SMA(myts, n=7)
+plot.ts(dfSMA1)
 
 
 ############   3.  DECOMPOSING TIME-SERIES DATA    ############################################
