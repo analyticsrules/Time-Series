@@ -19,6 +19,25 @@ a total value for production for a given reporting period.
 The main difference between a stock and a flow series is that flow series can contain effects related to the calendar 
 (trading day effects). Both types of series can still be seasonally adjusted using the same seasonal adjustment process.
 
+
+Weighted and Moving Average
+
+Weighted Avg is used to calculate arithmetic mean of a set of numbers in which some elements of the set carry more importance (weight)
+than others. Example: Grades are often computed using a weighted average. Suppose that homework counts 10%, quizzes 20%, and tests 70%.
+If Pat has a homework grade of 92, a quiz grade of 68, and a test grade of 81, then Pat's overall
+grade = (0.10)(92) + (0.20)(68) + (0.70)(81)     =     79.5
+
+Moving Avg is a succession of averages derived from successive segments (typically of constant size and overlapping) of a series of
+values. It is of two types:
+•	Simple Moving Avg (SMA): simple average of a security over a defined number of time periods
+•	Exponential Moving Avg (EMA): gives bigger weight to more recent prices
+Suppose there is 15 days data of a stock price. Then the moving avg fro 7 days will start on 7th day (for 3 days it will start on 3rd
+day) and moving avg would be avg of 1st 7 day prices. The moving avg for 8th day would be avg of 2nd to 8th day and so on.
+
+
+
+
+
 SEASONAL EFFECT:- A seasonal effect is a systematic and calendar related effect. For. e.g. Trading day (consumption of many items
 is highest on weekends). High consumption on Moving days (Easter day or Eid, date is not fixed)
 
